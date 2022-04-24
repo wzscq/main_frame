@@ -20,14 +20,14 @@ export default function FrameTab(){
 
     const onEditTab=(key,action)=>{
         tab.items.forEach((item)=>{
-            if(item.key===key){
+            if(item.params.key===key){
                 dispatch(closeTab(item));
             }
         });
     }
 
     const logTab=useMemo(()=>{
-        return tab.items.find(item=>item.key==="/log");
+        return tab.items.find(item=>item.params.key==="/log");
     },[tab]);
 
     useEffect(()=>{
@@ -44,15 +44,16 @@ export default function FrameTab(){
             <Tabs onChange={onChangeTab} onEdit={onEditTab} type="editable-card" hideAdd={true} activeKey={tab.current}>
             {
                 tab.items.map((item)=>{
-                    if(item.key==="/log"){
+                    const {key,title}=item.params;
+                    if(key==="/log"){
                         return (
-                            <TabPane tab={item.title} key={item.key} closable={true}>
+                            <TabPane tab={title} key={key} closable={true}>
                                 <LogTab/>
                             </TabPane>);
                     }
 
                     return (
-                        <TabPane tab={item.title} key={item.key} closable={true}>
+                        <TabPane tab={title} key={key} closable={true}>
                             <ChildFrame  item={item}/>
                         </TabPane>
                     );

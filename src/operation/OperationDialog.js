@@ -73,7 +73,7 @@ export default function OperationDialog(){
     const openTabFunc=()=>{
         //打开tab页
         dispatch(logInfo("打开Tab页:"+JSON.stringify(current)));
-        dispatch(openTab(current.params));
+        dispatch(openTab({params:current.params}));
         dispatch(operationDone({result:OP_RESULT.SUCCESS}));
     }
 

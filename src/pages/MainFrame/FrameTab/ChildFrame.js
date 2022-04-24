@@ -1,7 +1,7 @@
 import { useCallback, useEffect,useRef} from "react";
 
 import { FRAME_MESSAGE_TYPE } from '../../../operation';
-import {parseUrl} from '../../../utils/urlParser';
+import {convertUrl, parseUrl} from '../../../utils/urlParser';
 
 const frameType="tabframe";
 
@@ -10,7 +10,7 @@ export default function ChildFrame({item}){
 
     const onFrameLoad=useCallback(()=>{
         if(refFrame.current){
-            const url=parseUrl(item.url);
+            const url=parseUrl(item.params.url);
             refFrame.current.contentWindow.postMessage({type:FRAME_MESSAGE_TYPE.INIT,data:{...item,frameType:frameType}},url.origin);
         }
     },[refFrame,item]);
@@ -25,7 +25,16 @@ export default function ChildFrame({item}){
         }
     },[refFrame,onFrameLoad]);
 
+    const url=convertUrl(item.params.url);
+
     return (
-        <iframe title={frameType+"_"+item.key} id={frameType+"_"+item.key} ref={refFrame} frameBorder={0} scrolling={"yes"} src={item.url} />
-    )
+        <iframe 
+            allowfullscreen={true}
+            title={frameType+"_"+item.params.key} 
+            id={frameType+"_"+item.params.key} 
+            ref={refFrame} 
+            frameBorder={0} 
+            scrolling={"yes"} 
+            src={url} />
+    );
 }

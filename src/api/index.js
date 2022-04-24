@@ -15,7 +15,7 @@ export const getHost=()=>{
     return host;
 }
   
-const host=getHost()+'/frameservice';
+const host=getHost()+process.env.REACT_APP_SERVICE_API_PREFIX; //'/frameservice';
 
 export const getLoginImage=(appID)=>{
   return host+"/appimages/"+appID+"/login.png";

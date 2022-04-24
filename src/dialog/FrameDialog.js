@@ -2,7 +2,7 @@ import { useCallback, useEffect,useRef} from "react";
 import {Modal} from 'antd';
 
 import { FRAME_MESSAGE_TYPE } from '../operation';
-import {parseUrl} from '../utils/urlParser';
+import {convertUrl, parseUrl} from '../utils/urlParser';
 
 import './FrameDialog.css';
 
@@ -29,7 +29,8 @@ export default function FrameDialog({item}){
         }
     },[refFrame,onFrameLoad]);
 
-    const {params:{key,width,height,url}}=item;
+    const {params:{key,width,height}}=item;
+    const url=convertUrl(item.params.url);
 
     return (
         <Modal 

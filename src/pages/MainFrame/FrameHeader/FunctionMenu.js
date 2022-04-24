@@ -16,7 +16,7 @@ export default function FunctionMenu(){
         }
         if(key==="/functions"){
             params.title="功能列表";
-            params.url=host+"/function_list/index.html"
+            params.url=process.env.REACT_APP_FUNCTION_LIST_URL 
             //params.url="http://localhost:3001";
         }
 
