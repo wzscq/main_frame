@@ -1,8 +1,9 @@
 import { Menu} from 'antd';
-import { FileTextOutlined, AppstoreFilled } from '@ant-design/icons';
+import { AppstoreFilled } from '@ant-design/icons';
 
 import { getHost } from '../../../api';
 import { createOpenOperation,setOperation,OPEN_LOCATION } from '../../../operation';
+import { useEffect } from 'react';
 
 export default function FunctionMenu(){
     const handleClick=(e)=>{
@@ -26,6 +27,17 @@ export default function FunctionMenu(){
         const operationItem=createOpenOperation(params,{},"开发功能页面");
         setOperation(operationItem);
     }
+
+    useEffect(()=>{
+        const params={
+            url:process.env.REACT_APP_FUNCTION_LIST_URL,
+            title:"功能列表",
+            key:"/functions",
+            location:OPEN_LOCATION.TAB
+        };
+        const operationItem=createOpenOperation(params,{},"开发功能页面");
+        setOperation(operationItem);
+    });
 
     return (
         <Menu onClick={handleClick} selectedKeys={["mail"]} mode="horizontal">

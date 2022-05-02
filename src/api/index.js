@@ -21,6 +21,10 @@ export const getLoginImage=(appID)=>{
   return host+"/appimages/"+appID+"/login.png";
 }
 
+export const getAppIcon=(appID)=>{
+  return host+"/appimages/"+appID+"/"+appID+".ico";
+}
+
 export const getLogoImage=()=>{
   const {appID}=userInfoStorage.get();
   return host+"/appimages/"+appID+"/logo.png";

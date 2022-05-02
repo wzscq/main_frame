@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 // Define the initial state using that type
 const initialState = {
     items:[],
-    //current:""
+    current:""
 }
 
 export const tabSlice = createSlice({

@@ -6,7 +6,8 @@ import { setOperation,FRAME_MESSAGE_TYPE } from '../../operation';
 import Dialog from '../../dialog';
 import FrameHeader from './FrameHeader';
 import FrameTab from './FrameTab';
-import {queryData} from '../../api';
+import {queryData,getAppIcon} from '../../api';
+import {userInfoStorage} from '../../utils/sessionStorage';
 import './index.css';
 
 export default function MainFrame(){   
@@ -27,6 +28,16 @@ export default function MainFrame(){
         window.addEventListener('message',receiveMessageFromSubFrame);
         return ()=>{
             window.removeEventListener('message',receiveMessageFromSubFrame);
+        }
+    });
+
+    useEffect(()=>{
+        const {appID}=userInfoStorage.get();
+        document.title=appID;
+        let favicon = document.querySelector('link[rel="icon"]');
+        if (favicon !== null) {
+            console.log("set app icon to:",getAppIcon(appID));
+            favicon.href = getAppIcon(appID);
         }
     });
 
