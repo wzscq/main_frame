@@ -47,7 +47,12 @@ export const operationSlice = createSlice({
                     //执行成功    
                     state.current=state.current.successOperation;
                     if(state.current&&output){
-                        state.current.input=output;
+                        if(state.current.input)
+                        {
+                            state.current.input={...(state.current.input),...output}
+                        } else {
+                            state.current.input=output;
+                        }
                     }
                 } else {
                     //执行失败
