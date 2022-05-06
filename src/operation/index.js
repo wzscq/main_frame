@@ -8,7 +8,8 @@ export {
     OP_TYPE,
     OP_RESULT,
     OPEN_LOCATION,
-    FRAME_MESSAGE_TYPE
+    FRAME_MESSAGE_TYPE,
+    ERROR_CODE
 } from "./constant";
 
 export {

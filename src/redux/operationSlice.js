@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { message} from 'antd';
-import {OP_RESULT} from '../operation';
+import {
+    OP_RESULT,
+    ERROR_CODE,
+    createLogoutOperation
+} from '../operation';
 
 const initialState = {
     //一组连续的操作中已经执行完成的操作列表
@@ -35,7 +39,7 @@ export const operationSlice = createSlice({
         operationDone:(state,action) => {
             //如果当前操作未完成则不允许设置新的操作
             if(state.current){
-                let {result,message,output}=action.payload;
+                let {result,message,output,errorCode}=action.payload;
                 state.current.result=result;
                 if(state.current.params?.pending){
                     state.current.params.pending=false;
@@ -55,10 +59,16 @@ export const operationSlice = createSlice({
                         }
                     }
                 } else {
+                    console.log("operationDone",errorCode)
                     //执行失败
-                    state.current=state.current.errorOperation;
-                    //执行失败，但是没有失败的后续操作，则需要用户确认后关闭操作信息对话框 
-                    state.needConfirm=!(state.current)
+                    //如果是因为账号过期失败，则自动登出系统
+                    if(errorCode==ERROR_CODE.TOKEN_EXPIRED){
+                        state.current=createLogoutOperation();    
+                    } else {
+                        state.current=state.current.errorOperation;
+                        //执行失败，但是没有失败的后续操作，则需要用户确认后关闭操作信息对话框 
+                        state.needConfirm=!(state.current);
+                    }
                 }
             } else {
                 message.warning("执行操作完成更新时发现当前操作不存在！");
