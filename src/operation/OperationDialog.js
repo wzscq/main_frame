@@ -4,7 +4,12 @@ import { Modal,Button,message} from 'antd';
 import { useNavigate } from "react-router-dom";
 import { SyncOutlined } from '@ant-design/icons';
 
-import {requestAction,downloadAction,logoutApi} from '../api';
+import {
+    requestAction,
+    downloadAction,
+    logoutApi
+} from '../api';
+
 import {open,close} from '../redux/dialogSlice';
 import {operationDone,operationPending,confirm} from '../redux/operationSlice';
 import {openTab,closeAllTab} from '../redux/tabSlice';

@@ -9,7 +9,6 @@ import './FrameDialog.css';
 const frameType="frameDialog";
 
 export default function FrameDialog({item}){
-    console.log('frameDialog',item);
     const refFrame=useRef();
 
     const onFrameLoad=useCallback(()=>{

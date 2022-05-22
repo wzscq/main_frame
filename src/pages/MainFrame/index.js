@@ -2,11 +2,17 @@ import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 
 import {info as logInfo} from '../../redux/logSlice';
-import { setOperation,FRAME_MESSAGE_TYPE } from '../../operation';
+import { 
+    setOperation,
+    FRAME_MESSAGE_TYPE } from '../../operation';
 import Dialog from '../../dialog';
 import FrameHeader from './FrameHeader';
 import FrameTab from './FrameTab';
-import {queryData,getAppIcon} from '../../api';
+import {
+    queryData,
+    getAppIcon,
+    getImage
+} from '../../api';
 import {userInfoStorage} from '../../utils/sessionStorage';
 import './index.css';
 
@@ -21,7 +27,9 @@ export default function MainFrame(){
             setOperation(data.operationItem);
         } else if (type===FRAME_MESSAGE_TYPE.QUERY_REQUEST) {
             queryData(data);
-        }  
+        } else if (type===FRAME_MESSAGE_TYPE.GET_IMAGE) {
+            getImage(data);
+        }
     }
 
     useEffect(()=>{

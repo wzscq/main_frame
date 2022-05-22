@@ -88,7 +88,39 @@ export const downloadAction = createAsyncThunk(
     const response =await axios(config);
     return {data:response.data,fileName};
   }
-)
+);
+
+//获取图片文件内容，base64格式，填充到文件的url中，用于图片预览
+const GET_IMAGE_URL="/data/getImage";
+export const getImage = ({frameParams,queryParams})=>{
+  const {token}=userInfoStorage.get();
+  const config={
+    url:host+GET_IMAGE_URL,
+    method:'post',
+    data:{...queryParams},
+    headers:{token:token}
+  }
+  axios(config).then(function (response) {
+    console.log(response);
+    if(response.data.error===true){
+      message.error(response.data.message);
+    } else {
+      const {frameID,frameType,dataKey}=frameParams;
+      const frameControl=document.getElementById(frameType+"_"+frameID);
+      if(frameControl){
+          const origin=parseUrl(frameControl.getAttribute("src")).origin;
+          frameControl.contentWindow.postMessage({
+            type:FRAME_MESSAGE_TYPE.QUERY_RESPONSE,
+            dataKey:dataKey,
+            data:response.data.result},origin);
+      }
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+    message.error("获取图片数据时发生错误");
+  });;
+}
 
 //通用的查询接口，用于快速数据查询
 const DATA_QUERY_URL="/data/query";
