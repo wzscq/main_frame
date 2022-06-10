@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 
 import {dialogRepository} from "./constant.js";
 import FrameDialog from './FrameDialog';
+import useI18n from '../hook/useI18n';
 
 export {DIALOG_TYPE} from "./constant.js";
 
 export default function Dialog(){
+    const {getLocaleLabel}=useI18n();
     const item=useSelector(state=>state.dialog.current);
     if (item === null) {
         return null;
@@ -18,7 +20,7 @@ export default function Dialog(){
     if(dialog){
         return (
             <Modal 
-                title={dialog.title}
+                title={getLocaleLabel(dialog.title)}
                 closable={false}
                 zIndex={100} 
                 visible={true} 

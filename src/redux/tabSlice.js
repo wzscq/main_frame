@@ -1,9 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import {
+    OPEN_LOCATION
+} from '../operation';
+
 // Define the initial state using that type
 const initialState = {
-    items:[],
-    current:""
+    items:[{
+        params:{
+            url:process.env.REACT_APP_FUNCTION_LIST_URL,
+            title:{key:'page.main.functionList',default:'功能列表'},
+            key:'/functions',
+            location:OPEN_LOCATION.TAB
+        }
+    }],
+    current:"/functions"
 }
 
 export const tabSlice = createSlice({
@@ -50,7 +61,8 @@ export const tabSlice = createSlice({
             state.current=action.payload;
         },
         closeAllTab:(state,action) => {
-            state.items=[];
+            state.items=initialState.items;
+            state.current=initialState.current;
         }
     }
 });

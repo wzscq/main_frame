@@ -7,6 +7,7 @@ import {userInfoStorage} from '../utils/sessionStorage';
 import {
   FRAME_MESSAGE_TYPE
 } from "../operation/constant";
+import {getLocaleLabel} from '../utils/localeResources';
 
 export const getHost=()=>{
     const rootElement=document.getElementById('root');
@@ -38,7 +39,7 @@ export const loginApi = createAsyncThunk(
       console.log('login reponse',reponse);
       return reponse.data;
     }
-)
+);
 
 //logout api
 export const logoutApi = createAsyncThunk(
@@ -54,7 +55,7 @@ export const logoutApi = createAsyncThunk(
     const reponse= await axios(config);
     return reponse.data;
   }
-)
+);
 
 //request api
 export const requestAction = createAsyncThunk(
@@ -70,7 +71,7 @@ export const requestAction = createAsyncThunk(
     const response =await axios(config);
     return response.data;
   }
-)
+);
 
 //文件下载接口
 const DOWNLOAD_FILE_URL="/data/download";
@@ -118,7 +119,7 @@ export const getImage = ({frameParams,queryParams})=>{
   })
   .catch(function (error) {
     console.log(error);
-    message.error("获取图片数据时发生错误");
+    message.error(getLocaleLabel({key:'message.main.getImageError',default:'获取图片数据时发生错误'}));
   });;
 }
 
@@ -150,6 +151,18 @@ export const queryData = ({frameParams,queryParams})=>{
   })
   .catch(function (error) {
     console.log(error);
-    message.error("查询数据时发生错误");
+    message.error(getLocaleLabel({key:'message.main.queryDataError',default:'查询数据时发生错误'}));
   });;
 }
+
+//获取APP支持的语言种类信息，同时返回指定语言资源，
+//如果没有和给定语言对应的资源则返回默认的语言资源
+const DEF_I18N_URL="/appI18n/";
+export const getAppI18n = createAsyncThunk(
+  'getAppI18n',
+  async ({appID,locale}, _) => {
+    const reponse= await axios({url:host+DEF_I18N_URL+appID+'/'+locale,method:"get"});
+    console.log('getAppI18n reponse',reponse);
+    return reponse.data;
+  }
+);

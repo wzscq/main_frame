@@ -25,8 +25,10 @@ import {
     FRAME_MESSAGE_TYPE,
     MESSAGE_TYPE
 } from "./constant";
+import useI18n from "../hook/useI18n";
 
 export default function OperationDialog(){
+    const {getLocaleLabel,getLocaleErrorMessage}=useI18n();
     const dispatch=useDispatch();
     const navigate=useNavigate();
     const {doneList,current,needConfirm}=useSelector(state=>state.operation);
@@ -34,7 +36,12 @@ export default function OperationDialog(){
     
     //已完成操作列表
     const operationList=doneList.map((item,index)=>{
-        return <OpertaionItem key={index} item={item} state={2}/>;
+        return <OpertaionItem
+                    getLocaleLabel={getLocaleLabel} 
+                    getLocaleErrorMessage={getLocaleErrorMessage}
+                    key={index} 
+                    item={item} 
+                    state={2}/>;
     });
 
     const handleConfirm=()=>{
@@ -209,21 +216,26 @@ export default function OperationDialog(){
     if(current){
         //当前正在执行的操作放入列表中
         operationList.push(
-            <OpertaionItem key={operationList.length} item={current} state={1}/>
+            <OpertaionItem 
+                getLocaleLabel={getLocaleLabel} 
+                getLocaleErrorMessage={getLocaleErrorMessage}
+                key={operationList.length} 
+                item={current} 
+                state={1}/>
         );
         runing=true;    
     } else {
         //所有的操作都执行完成，并且有错误，则需要用户确认
         if(needConfirm){
             footer=[
-                <Button type="primary" onClick={handleConfirm}>确定</Button>,
+                <Button type="primary" onClick={handleConfirm}>{getLocaleLabel({key:'dialog.operation.confirm',default:'确定'})}</Button>,
             ]
         }
     }
 
     return (
         needConfirm?(<Modal 
-            title="执行操作" 
+            title={getLocaleLabel({key:'dialog.operation.doOperations',default:'执行操作'})} 
             zIndex={200} 
             visible={true} 
             closable={false}

@@ -1,13 +1,17 @@
 import { Card,Form,Input,Button } from 'antd';
 import { useSelector,useDispatch } from 'react-redux';
 
+import SelectLanguage from '../../component/SelectLanguage';
 import {encodePassword} from '../../utils/passwordEncoder';
 import {loginApi} from '../../api';
+import useI18n from '../../hook/useI18n';
+
 import './LoginForm.css';
 
 export default function LoginForm({appID}){
     const pending=useSelector(state=>state.login.pending);
     const dispatch = useDispatch();
+    const {getLocaleLabel}=useI18n();
 
     const onFinish = (values) => {
         //提交账号密码，获取用户token
@@ -20,32 +24,32 @@ export default function LoginForm({appID}){
     };
 
     return (
-        <div className="login-form">
-            <Card title="登录">
+        <div className='login-form'>
+            <Card title={getLocaleLabel({key:'page.login.login',default:'登录'})} extra={<SelectLanguage appID={appID}/>}>
                 <Form
-                    name="basic"
-                    layout="vertical"
+                    name='basic'
+                    layout='vertical'
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     >
                     <Form.Item
-                        label="账号"
-                        name="userId"
+                        label={getLocaleLabel({key:'page.login.account',default:'账号'})}
+                        name='userId'
                         rules={[{ required: true, message: '请输入登录账号!' }]}
                     >
                         <Input />
                     </Form.Item>
 
                     <Form.Item
-                        label="密码"
-                        name="password"
+                        label={getLocaleLabel({key:'page.login.password',default:'密码'})}
+                        name='password'
                         rules={[{ required: true, message: '请输入密码!' }]}
                     >
                         <Input.Password />
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 7, span: 0 }}>
-                        <Button loading={pending} type="primary" htmlType="submit" >确定</Button>
+                        <Button loading={pending} type='primary' htmlType='submit' >{getLocaleLabel({key:'page.login.submit',default:'确定'})}</Button>
                     </Form.Item>
                 </Form>
             </Card>

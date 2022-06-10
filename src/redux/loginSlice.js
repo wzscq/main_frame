@@ -3,6 +3,7 @@ import { message} from 'antd';
 
 import {loginApi,logoutApi} from '../api';
 import {userInfoStorage} from '../utils/sessionStorage';
+import {getLocaleErrorMessage} from '../utils/localeResources';
 
 const currentUser=userInfoStorage.get();
 
@@ -31,7 +32,8 @@ export const loginSlice = createSlice({
     builder.addCase(loginApi.fulfilled, (state, action) => {
       state.pending=false;
       if(action.payload.error&&action.payload.message){
-        message.error(action.payload.message);
+        //message.error(action.payload.message);
+        message.error(getLocaleErrorMessage(action.payload));
       } else {
         const loginApiResponse=action.payload.result;
         state.userName=loginApiResponse.userName;
@@ -53,7 +55,8 @@ export const loginSlice = createSlice({
     builder.addCase(logoutApi.fulfilled, (state, action) => {
       state.pending=false;
       if(action.payload.error&&action.payload.message){
-        message.error(action.payload.message);
+        //message.error(action.payload.message);
+        message.error(getLocaleErrorMessage(action.payload));
       }
     });
     builder.addCase(logoutApi.rejected , (state, action) => {
@@ -66,6 +69,6 @@ export const loginSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {} = loginSlice.actions
+//export const {} = loginSlice.actions
 
 export default loginSlice.reducer

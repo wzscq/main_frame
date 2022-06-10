@@ -5,6 +5,7 @@ import {
     ERROR_CODE,
     createLogoutOperation
 } from '../operation';
+import {getLocaleLabel} from '../utils/localeResources';
 
 const initialState = {
     //一组连续的操作中已经执行完成的操作列表
@@ -25,9 +26,10 @@ export const operationSlice = createSlice({
         },
         setOperation: (state,action) => {
             //如果当前操作未完成则不允许设置新的操作
-            console.log(action.payload);
             if(state.current){
-                message.warning("当前操作尚未执行完成，请稍后再试！");
+                console.log('hasOperationWhenSet:',action.payload);
+                //message.warning('当前操作尚未执行完成，请稍后再试！');
+                message.warning(getLocaleLabel({key:'message.main.hasOperationWhenSet',default:'当前操作尚未执行完成，请稍后再试！'}));
             } else {
                 state.current=action.payload;
                 state.doneList=[];
@@ -46,6 +48,7 @@ export const operationSlice = createSlice({
                 }
                 state.current.output=output;
                 state.current.message=message;
+                state.current.errorCode=errorCode;
                 state.doneList.push({...state.current});
                 if(result===OP_RESULT.SUCCESS){
                     //执行成功    
@@ -62,7 +65,7 @@ export const operationSlice = createSlice({
                     console.log("operationDone",errorCode)
                     //执行失败
                     //如果是因为账号过期失败，则自动登出系统
-                    if(errorCode==ERROR_CODE.TOKEN_EXPIRED){
+                    if(errorCode===ERROR_CODE.TOKEN_EXPIRED){
                         state.current=createLogoutOperation();    
                     } else {
                         state.current=state.current.errorOperation;
@@ -71,7 +74,7 @@ export const operationSlice = createSlice({
                     }
                 }
             } else {
-                message.warning("执行操作完成更新时发现当前操作不存在！");
+                message.warning("The current operation is not exist when operaiton done！");
             }
         },
     }

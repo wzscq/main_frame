@@ -32,6 +32,13 @@
     text-align: center;
 }
 
+.frame-header .locale-selector {
+    width: 45px;
+    float: right;
+    line-height: 45px;
+    text-align: center;
+}
+
 .frame-header .system-operation-bar {
     width: 45px;
     height: 45px;

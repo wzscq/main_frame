@@ -5,18 +5,23 @@ import { FRAME_MESSAGE_TYPE } from '../operation';
 import {convertUrl, parseUrl} from '../utils/urlParser';
 
 import './FrameDialog.css';
+import useI18n from "../hook/useI18n";
 
 const frameType="frameDialog";
 
 export default function FrameDialog({item}){
+    const {locale,resources}=useI18n();
     const refFrame=useRef();
 
     const onFrameLoad=useCallback(()=>{
         if(refFrame.current){
             const url=parseUrl(item.params.url);
-            refFrame.current.contentWindow.postMessage({type:FRAME_MESSAGE_TYPE.INIT,data:{...item,frameType:frameType}},url.origin);
+            refFrame.current.contentWindow.postMessage({
+                type:FRAME_MESSAGE_TYPE.INIT,
+                i18n:{locale,resources},
+                data:{...item,frameType:frameType}},url.origin);
         }
-    },[refFrame,item]);
+    },[refFrame,item,locale,resources]);
 
     useEffect(()=>{
         if(refFrame.current){

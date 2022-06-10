@@ -9,8 +9,10 @@ import {
     setOperation,
     OPEN_LOCATION
 } from '../../../operation';
+import useI18n from '../../../hook/useI18n';
 
 export default function SystemMenu(){
+    const {getLocaleLabel}=useI18n();
     const userName=useSelector(state=>state.login.userName);
 
     const handleClick=(e)=>{
@@ -34,19 +36,17 @@ export default function SystemMenu(){
             {
                 url:DIALOG_TYPE.CHANGE_PASSWORD,
                 location:OPEN_LOCATION.MODAL
-            },{},"打开修改用户密码对话框");
+            },{},getLocaleLabel({key:'page.main.openChangePasswordDialog',default:'打开修改用户密码对话框'}));
         setOperation(operationItem);
     }
 
+    const menuItems=[
+        {key:'logout',label:getLocaleLabel({key:'page.main.logout',default:'退出登录'})},
+        {key:'changePassword',label:getLocaleLabel({key:'page.main.changePassword',default:'修改密码 ...'})}
+    ];
+
     const menu = (
-        <Menu onClick={handleClick}>
-          <Menu.Item key="logout">
-              退出登录
-          </Menu.Item>
-          <Menu.Item key="changePassword">
-              修改密码 ...
-          </Menu.Item>
-        </Menu>
+        <Menu onClick={handleClick} items={menuItems}/>
     );
 
     return (
