@@ -9,7 +9,7 @@
     height:100% 
 }
 
-.login-form .ant-btn {
+.login-form .login-confirm-button {
     width: 140px;
     margin-top: 20px;
 }

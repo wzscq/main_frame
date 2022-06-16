@@ -49,7 +49,7 @@ export default function LoginForm({appID}){
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 7, span: 0 }}>
-                        <Button loading={pending} type='primary' htmlType='submit' >{getLocaleLabel({key:'page.login.submit',default:'确定'})}</Button>
+                        <Button className='login-confirm-button' loading={pending} type='primary' htmlType='submit' >{getLocaleLabel({key:'page.login.submit',default:'确定'})}</Button>
                     </Form.Item>
                 </Form>
             </Card>
