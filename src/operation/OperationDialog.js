@@ -59,11 +59,11 @@ export default function OperationDialog(){
     const showMessage=()=>{
         const {type,content,duration}=current.params;
         if(type===MESSAGE_TYPE.SUCCESS){
-            message.success(content,duration);
+            message.success(getLocaleLabel(content),duration);
         } else if (type===MESSAGE_TYPE.ERROR){
-            message.error(content,duration);
+            message.error(getLocaleLabel(content),duration);
         } else {
-            message.info(content,duration);
+            message.info(getLocaleLabel(content),duration);
         }
         dispatch(operationDone({result:OP_RESULT.SUCCESS}));
     }
