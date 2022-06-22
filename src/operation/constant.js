@@ -2,14 +2,14 @@
  * 以下为操作类型枚举常量定义
  */
 export const OP_TYPE={
-    OPEN:"OP_TYPE_OPEN",   //打开窗口
-    CLOSE:"OP_TYPE_CLOSE",   //关闭窗口
-    REQUEST:"OP_TYPE_REQUEST",   //调用API
-    UPDATE_FRAME_DATA:"OP_TYPE_UPDATE_FRAME_DATA",  //更新子框架数据
-    RELOAD_FRAME_DATA:"OP_TYPE_RELOAD_FRAME_DATA", //重新加载页面数据
-    LOGOUT:"OP_TYPE_LOGOUT",   //退出登录
-    MESSAGE:"OP_TYPE_MESSAGE",  //弹出提示消息
-    DOWNLOAD_FILE:"OP_TYPE_DOWNLOAD_FILE", //下载文件
+    OPEN:'open',  //"OP_TYPE_OPEN",   //打开窗口
+    CLOSE:'close',  //"OP_TYPE_CLOSE",   //关闭窗口
+    REQUEST:'request',   //"OP_TYPE_REQUEST",   //调用API
+    UPDATE_FRAME_DATA:'updateFrameData',//"OP_TYPE_UPDATE_FRAME_DATA",  //更新子框架数据
+    RELOAD_FRAME_DATA:'reloadFrameData',//"OP_TYPE_RELOAD_FRAME_DATA", //重新加载页面数据
+    LOGOUT:'logout',//"OP_TYPE_LOGOUT",   //退出登录
+    MESSAGE:'message',//"OP_TYPE_MESSAGE",  //弹出提示消息
+    DOWNLOAD_FILE:'downloadFile' //"OP_TYPE_DOWNLOAD_FILE", //下载文件
 }
 
 /**
@@ -25,8 +25,8 @@ export const MESSAGE_TYPE = {
  * 以下为操作返回结果
  */
 export const OP_RESULT={
-    SUCCESS:"OP_RESULT_SUCCESS",  //操作成功
-    ERROR:"OP_RESULT_ERROR"  //操作失败
+    SUCCESS:'success',//"OP_RESULT_SUCCESS",  //操作成功
+    ERROR:'error',//"OP_RESULT_ERROR"  //操作失败
 }
 
 export const ERROR_CODE={
@@ -37,23 +37,23 @@ export const ERROR_CODE={
  * 以下为打开窗口操作中，指定窗口打开位置的枚举常量定义
  */
  export const OPEN_LOCATION={
-    TAB:"LOCATION_TYPE_TAB",  //在tab页中打开窗口
-    CURRENT:"LOCATION_TYPE_CURRENT",  //打开窗口替换当前页面
-    MODAL:"LOCATION_TYPE_MODAL"  //以模态框形式打开窗口
+    TAB:'tab',//"LOCATION_TYPE_TAB",  //在tab页中打开窗口
+    CURRENT:'current',//"LOCATION_TYPE_CURRENT",  //打开窗口替换当前页面
+    MODAL:'modal',//"LOCATION_TYPE_MODAL"  //以模态框形式打开窗口
 }
 
 /**
  * 一下是主框架和iframe的消息通信中传递消息的类型
  */
 export const FRAME_MESSAGE_TYPE={
-    DO_OPERATION:"DO_OPERATION",
-    INIT:"INIT",
-    UPDATE_DATA:"UPDATE_DATA",
-    RELOAD_DATA:"RELOAD_DATA",
-    UPDATE_LOCALE:"UPDATE_LOCALE",
-    QUERY_REQUEST:"QUERY_REQUEST",
-    QUERY_RESPONSE:"QUERY_RESPONSE",
-    GET_IMAGE:"GET_IMAGE"
+    DO_OPERATION:'doOperation',//"DO_OPERATION",
+    INIT:'init',//"INIT",
+    UPDATE_DATA:'updateData',//"UPDATE_DATA",
+    RELOAD_DATA:'reloadData',//"RELOAD_DATA",
+    UPDATE_LOCALE:'updateLocale',//"UPDATE_LOCALE",
+    QUERY_REQUEST:'queryRequest',//"QUERY_REQUEST",
+    QUERY_RESPONSE:'queryResponse',//"QUERY_RESPONSE",
+    GET_IMAGE:'getIamge' //"GET_IMAGE"
 }
 
 /**
