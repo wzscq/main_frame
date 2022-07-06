@@ -79,7 +79,11 @@ export default function OperationDialog(){
         //关闭对话框，同时结束当前动作
         dispatch(logInfo("关闭对话框:"+JSON.stringify(current)));
         dispatch(close());
-        dispatch(operationDone({result:OP_RESULT.SUCCESS}));
+        const payload={
+            result:OP_RESULT.SUCCESS,
+            output:current.input,
+        }
+        dispatch(operationDone(payload));
     }
 
     const openTabFunc=()=>{
@@ -189,7 +193,7 @@ export default function OperationDialog(){
                 }
             } else if(current.type===OP_TYPE.CLOSE){
                 if(current.params.location===OPEN_LOCATION.MODAL){
-                    closeDialog();
+                    closeDialog(current);
                 } else {
                     dispatch(logInfo("关闭窗口的位置不正确:"+JSON.stringify(current)));
                 }
